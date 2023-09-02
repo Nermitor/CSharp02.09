@@ -1,0 +1,13 @@
+12
+Pop
+Clear
+Push 3
+Push 8
+Empty
+Pop
+Pop
+Pop
+Peek
+Push 17
+Push 25
+Push 1
