@@ -7,9 +7,9 @@ namespace CSharp02._09
     {
         public static void Main(string[] args)
         {
-            SetNodes<Int32> s = new SetNodes<int>();
-            StreamReader input = new StreamReader(@"your_path");
-            StreamWriter output = new StreamWriter(@"your_path");
+            SetNodesWithCount<Int32> s = new SetNodesWithCount<int>();
+            StreamReader input = new StreamReader(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\test2.txt");
+            StreamWriter output = new StreamWriter(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\out.txt");
             
             Test(ref s, ref input, ref output);
             
@@ -17,12 +17,12 @@ namespace CSharp02._09
             output.Close();
         }
 
-        private static void WriteStack(ref SetNodes<Int32> s, ref StreamWriter outFile)
+        private static void WriteStack(ref SetNodesWithCount<Int32> s, ref StreamWriter outFile)
         {
             outFile.WriteLine($"Current State - {s.ToString()}");
         }
 
-        public static void Test(ref SetNodes<Int32> s,ref StreamReader inputFile, ref StreamWriter outFile)
+        public static void Test(ref SetNodesWithCount<Int32> s,ref StreamReader inputFile, ref StreamWriter outFile)
         {
             int lines = Convert.ToInt32(inputFile.ReadLine());
 

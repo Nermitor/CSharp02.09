@@ -8,7 +8,7 @@ namespace CSharp02._09
 
         public bool Empty() => _topNode == null;
 
-        public void Push(T value)
+        public virtual void Push(T value)
         {
             Node<T> newNode = new Node<T>(value, _topNode);
             _topNode = newNode;
@@ -17,7 +17,7 @@ namespace CSharp02._09
         public T Peek() => _topNode.Value;
 
 
-        public T Pop()
+        public virtual T Pop()
         {
             T value = _topNode.Value;
             _topNode = _topNode.Prev;
@@ -25,7 +25,7 @@ namespace CSharp02._09
 
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             while (!Empty())
             {
