@@ -1,9 +1,9 @@
-3-2-1-end
-3-2-1-end
-3-2-1-end[3]
-3-2-1-end
-3-2-1-end[3]
-3-2-1-end
-3-2-1-end[3]
-3-2-1-end[3]
-3-2-1-end[3]
+Count: Method not available
+Count: Method not available
+Count: 3
+Count: Method not available
+Count: 3
+Count: Method not available
+Count: 3
+Count: 3
+Count: 3

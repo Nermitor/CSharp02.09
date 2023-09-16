@@ -43,7 +43,10 @@ namespace CSharp02._09
         public static void WriteSetNodesList(ref StreamWriter output, ref List<SetNodes<int>> setNodesList)
         {
             foreach (var setNodes in setNodesList)
-                output.WriteLine(setNodes.ToStr());
+                if (setNodes is SetNodesWithCount<int>)
+                    output.WriteLine($"Count: {(setNodes as SetNodesWithCount<int>).Count}");
+                else
+                    output.WriteLine("Count: Method not available");
         }
     }
 }
