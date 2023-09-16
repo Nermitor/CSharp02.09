@@ -1,0 +1,9 @@
+0
+6
+Push 3
+Push 8
+Count
+Empty
+Pop
+Push 1
+

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using CSharp02._09.Exceptions;
 
 namespace CSharp02._09
 {
@@ -8,42 +8,79 @@ namespace CSharp02._09
     {
         public static void Main(string[] args)
         {
-            StreamReader input = new StreamReader(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\test3.txt");
-            List<SetNodes<int>> setNodesList = ReadSetNodesList(ref input);
-            input.Close();
-
+            StreamReader input = new StreamReader(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\test5.txt");
             StreamWriter output = new StreamWriter(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\out.txt");
-            WriteSetNodesList(ref output, ref setNodesList);
+
+            Test(ref input, ref output);
+
+            input.Close();
             output.Close();
         }
 
-        public static void FillSetNodes(SetNodes<int> setNodes)
+        private static void WriteStack(ref SetNodes<Int32> s, ref StreamWriter outFile)
         {
-            int[] a = { 1, 2, 3 };
-            foreach (int item in a)
-            {
-                setNodes.Push(item);
-            }
+            outFile.WriteLine($"Current State - {s.ToStr()}");
         }
 
-        public static List<SetNodes<int>> ReadSetNodesList(ref StreamReader input)
+        public static void Test(ref StreamReader inputFile, ref StreamWriter outFile)
         {
-            List<SetNodes<int>> setNodesList = new List<SetNodes<int>>();
+            int type = Convert.ToInt32(inputFile.ReadLine());
+            SetNodes<int> setNodes = (type == 1 ? new SetNodesWithCount<int>() : new SetNodes<int>());
 
-            foreach (char number in input.ReadLine())
+            int lines = Convert.ToInt32(inputFile.ReadLine());
+
+            while (lines-- > 0)
             {
-                var setNodes = (Convert.ToInt32(number) == '1' ? new SetNodesWithCount<int>() : new SetNodes<int>());
-                FillSetNodes(setNodes);
-                setNodesList.Add(setNodes);
+                String[] curCommands = inputFile.ReadLine()?.Split();
+                switch (curCommands[0])
+                {
+                    case "Push":
+                        setNodes.Push(Convert.ToInt32(curCommands[1]));
+                        outFile.WriteLine($"Push: {curCommands[1]}");
+                        WriteStack(ref setNodes, ref outFile);
+                        break;
+                    case "Empty":
+                        outFile.WriteLine($"Empty - {setNodes.Empty()}");
+                        break;
+                    case "Pop":
+                        try
+                        {
+                            outFile.WriteLine($"Pop({setNodes.Pop()})");
+                            WriteStack(ref setNodes, ref outFile);
+                            break;
+                        }
+                        catch (SetNodesPopException e)
+                        {
+                            outFile.WriteLine(e.Message);
+                            return;
+                        }
+
+                    case "Peek":
+                        try
+                        {
+                            outFile.WriteLine($"Peek({setNodes.Peek()})");
+                            WriteStack(ref setNodes, ref outFile);
+                            break;
+                        }
+                        catch (SetNodesPeekException e)
+                        {
+                            outFile.WriteLine(e.Message);
+                            return;
+                        }
+
+                    case "Clear":
+                        setNodes.Clear();
+                        outFile.WriteLine($"Clear");
+                        WriteStack(ref setNodes, ref outFile);
+                        break;
+                    case "Count":
+                        if (setNodes is SetNodesWithCount<int>)
+                            outFile.WriteLine($"Count: {(setNodes as SetNodesWithCount<int>).Count}");
+                        else
+                            outFile.WriteLine("Count: Method not available");
+                        break;
+                }
             }
-
-            return setNodesList;
-        }
-
-        public static void WriteSetNodesList(ref StreamWriter output, ref List<SetNodes<int>> setNodesList)
-        {
-            foreach (var setNodes in setNodesList)
-                output.WriteLine(setNodes.ToStr());
         }
     }
 }

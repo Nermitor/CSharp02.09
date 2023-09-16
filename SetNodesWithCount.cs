@@ -10,8 +10,8 @@ namespace CSharp02._09
 
         public override T Pop()
         {
-            cnt--;
             return base.Pop();
+            cnt--;
         }
 
         public override void Clear()

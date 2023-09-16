@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharp02._09.Exceptions;
 
 namespace CSharp02._09
 {
@@ -14,11 +15,16 @@ namespace CSharp02._09
             _topNode = newNode;
         }
 
-        public T Peek() => _topNode.Value;
+        public T Peek()
+        {
+            if (Empty()) throw new SetNodesPeekException("Empty stack in Peek");
+            return _topNode.Value;
+        }
 
 
         public virtual T Pop()
         {
+            if (Empty()) throw new SetNodesPopException("Empty stack in Pop");
             T value = _topNode.Value;
             _topNode = _topNode.Prev;
             return value;
