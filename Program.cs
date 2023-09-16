@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CSharp02._09
@@ -7,61 +8,42 @@ namespace CSharp02._09
     {
         public static void Main(string[] args)
         {
-            SetNodesWithCount<Int32> s = new SetNodesWithCount<int>();
-            StreamReader input = new StreamReader(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\test2.txt");
-            StreamWriter output = new StreamWriter(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\out.txt");
-            
-            Test(ref s, ref input, ref output);
-            
+            StreamReader input = new StreamReader(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\test3.txt");
+            List<SetNodes<int>> setNodesList = ReadSetNodesList(ref input);
             input.Close();
+
+            StreamWriter output = new StreamWriter(@"C:\\Users\\dmaty\\RiderProjects\\CSharp02.09\\out.txt");
+            WriteSetNodesList(ref output, ref setNodesList);
             output.Close();
         }
 
-        private static void WriteStack(ref SetNodesWithCount<Int32> s, ref StreamWriter outFile)
+        public static void FillSetNodes(SetNodes<int> setNodes)
         {
-            outFile.WriteLine($"Current State - {s.ToString()}");
+            int[] a = { 1, 2, 3 };
+            foreach (int item in a)
+            {
+                setNodes.Push(item);
+            }
         }
 
-        public static void Test(ref SetNodesWithCount<Int32> s,ref StreamReader inputFile, ref StreamWriter outFile)
+        public static List<SetNodes<int>> ReadSetNodesList(ref StreamReader input)
         {
-            int lines = Convert.ToInt32(inputFile.ReadLine());
+            List<SetNodes<int>> setNodesList = new List<SetNodes<int>>();
 
-            while (lines-- > 0)
+            foreach (char number in input.ReadLine())
             {
-                String[] curCommands = inputFile.ReadLine()?.Split();
-                switch (curCommands[0])
-                {
-                    case "Push":
-                        s.Push(Convert.ToInt32(curCommands[1]));
-                        outFile.WriteLine($"Push: {curCommands[1]}");
-                        WriteStack(ref s, ref outFile);
-                        break;
-                    case "Empty":
-                        outFile.WriteLine($"Empty - {s.Empty()}");
-                        break;
-                    case "Pop":
-                        if (s.Empty())
-                            outFile.WriteLine("Not Pop - Empty");
-                        else
-                            outFile.WriteLine($"Pop({s.Pop()})");
-                        WriteStack(ref s, ref outFile);
-                        break;
-                    case "Peek":
-                        if (s.Empty())
-                            outFile.WriteLine("Not Peek - Empty");
-                        else
-                        {
-                            outFile.WriteLine($"Peek({s.Peek()})");
-                            WriteStack(ref s, ref outFile);
-                        }
-                        break;
-                    case "Clear":
-                        s.Clear();
-                        outFile.WriteLine($"Clear");
-                        WriteStack(ref s, ref outFile);
-                        break;
-                }
+                var setNodes = (Convert.ToInt32(number) == '1' ? new SetNodesWithCount<int>() : new SetNodes<int>());
+                FillSetNodes(setNodes);
+                setNodesList.Add(setNodes);
             }
+
+            return setNodesList;
+        }
+
+        public static void WriteSetNodesList(ref StreamWriter output, ref List<SetNodes<int>> setNodesList)
+        {
+            foreach (var setNodes in setNodesList)
+                output.WriteLine(setNodes.ToStr());
         }
     }
 }

@@ -33,7 +33,7 @@ namespace CSharp02._09
             }
         }
 
-        public new String ToString()
+        public virtual String ToStr()
         {
             String stringify = "";
 

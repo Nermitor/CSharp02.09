@@ -2,11 +2,11 @@
 
 namespace CSharp02._09
 {
-    public class SetNodesWithCount <T>: SetNodes<T>
+    public class SetNodesWithCount<T> : SetNodes<T>
     {
         private Int32 cnt;
 
-        public Int32 Count { get; }
+        public Int32 Count => cnt;
 
         public override T Pop()
         {
@@ -26,9 +26,9 @@ namespace CSharp02._09
             cnt++;
         }
 
-        public new String ToString()
+        public override String ToStr()
         {
-            return base.ToString() + $"[{cnt}]";
+            return base.ToStr() + $"[{cnt}]";
         }
     }
 }

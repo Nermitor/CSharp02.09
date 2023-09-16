@@ -1,22 +1,9 @@
-Not Pop - Empty
-Current State - end[0]
-Clear
-Current State - end[0]
-Push: 3
-Current State - 3-end[1]
-Push: 8
-Current State - 8-3-end[2]
-Empty - False
-Pop(8)
-Current State - 3-end[1]
-Pop(3)
-Current State - end[0]
-Not Pop - Empty
-Current State - end[0]
-Not Peek - Empty
-Push: 17
-Current State - 17-end[1]
-Push: 25
-Current State - 25-17-end[2]
-Push: 1
-Current State - 1-25-17-end[3]
+3-2-1-end
+3-2-1-end
+3-2-1-end[3]
+3-2-1-end
+3-2-1-end[3]
+3-2-1-end
+3-2-1-end[3]
+3-2-1-end[3]
+3-2-1-end[3]
